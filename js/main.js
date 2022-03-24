@@ -1,12 +1,9 @@
 /*El proyecto es simular la carga de los productos de una tienda.
-
 Las partes estaticas de la pagina, titulo, descripcion y about us, cambiarlas de acuerdo a lo que escojan que quieran
  que sea la tienda, dentro del HTML.
-
 La seccion de productos debe ser cargada con Javascript, para esto revisar que se deberia crear para cargar 10 productos 
 a la tienda, cada uno debe tener lo que se visualiza (card, imagen, titulo, descripcion, link a la pagina del producto, 
 otro link que lleve a google.com)
-
 Plus, crear una funcion de JS que permita desde consola agregar un producto al HTML*/
 
 //JSON = objetos javascript en formato "string" para poderlos mandar via internet, 
@@ -150,9 +147,46 @@ function showProducts(myProducts) {
 }
 
 showProducts(products);
-/*
-<div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>*/
-              
+
+const btnAddProduct = document.querySelector("#btn-add-product");
+const productsArray = []
+
+btnAddProduct.addEventListener("click", function(){
+    const title = document.querySelector("#input-title");
+    const description = document.querySelector("#input-description");
+    const imageUrl = document.querySelector("#input-image");
+    const productLink = document.querySelector("#input-product-link");
+    const googleLink = document.querySelector("#input-google-link");
+
+    
+    const product = 
+    {
+        title: title.value,
+        description: description.value,
+        img_src: imageUrl.value,
+        prod_link: productLink.value,
+        google_link: googleLink.value
+     }
+
+     showProduct(product);
+     
+     productsArray.push(product)
+    let productsJson = JSON.stringify(productsArray)
+    localStorage.setItem("products", productsJson)      
+
+    limpiarFormulario()
+
+})
+
+let productsLocalStorage = localStorage.getItem("products")
+let myData =  JSON.parse(productsLocalStorage)
+console.log(myData)
+myData.forEach((product) => {
+    showProduct(product);
+});
+
+
+
+function limpiarFormulario() {
+    document.querySelector("#miForm").reset();
+  }
