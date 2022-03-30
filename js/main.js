@@ -112,11 +112,11 @@ btnAddProduct.addEventListener("click", function(){
     products.push(product);
     localStorage.setItem("products", JSON.stringify(products));
     
-    limpiarFormulario();
+    clearForm();
 
 })
 
 
-function limpiarFormulario() {
+function clearForm() {
     document.querySelector("#miForm").reset();
   }
